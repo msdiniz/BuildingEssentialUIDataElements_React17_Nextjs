@@ -9,7 +9,8 @@ function NoteCard({ note }) {
         </div>
 
         <p className="note-date font-12 text-muted">
-          {new Date(note.createDate).toLocaleTimeString("en", {
+          {new Date(note.createDate).toLocaleTimeString("pt", {
+            //TODO: use useContext to localize the time between en and pt
             year: "numeric",
             month: "long",
             day: "numeric",
