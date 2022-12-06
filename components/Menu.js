@@ -4,7 +4,8 @@ import * as React from 'react';
 
 function Menu() {
   const { createNote, dateFormat, chooseDateFormat } = useContext(NotesContext);
-  const [ checked, setChecked] = React.useState(false);
+  //const isEnglish = dateFormat === "en";
+  const [ checked, setChecked] = React.useState(dateFormat === "en");
 
   const handleChange = () => {
     setChecked(!checked);
@@ -23,7 +24,7 @@ function Menu() {
     );
   };
   function createNoteFn() {
-    const timeOfDay = new Date().toLocaleTimeString("en", {
+    const timeOfDay = new Date().toLocaleTimeString(dateFormat, {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
@@ -49,7 +50,7 @@ function Menu() {
       <li className="nav-item ml-auto">
       <div>
       <Checkbox
-        label="Which Time format?"
+        label="American US time format?"
         value={checked}
         onChange={handleChange}
       />

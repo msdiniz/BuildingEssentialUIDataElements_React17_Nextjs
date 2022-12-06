@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 function useNotes() {
   const [notesData, setNotesData] = useState();
   const [notesDataError, setNotesDataError] = useState();
-  const [dateFormat, setDateFormat ] = useState();
+  const [dateFormat, setDateFormat ] = useState("en");
 
   useEffect(() => {
     async function getData() {
