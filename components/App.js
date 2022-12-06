@@ -49,11 +49,12 @@ function App() {
     //   />
     //   {/* <Bootstrapfontawesometest /> */}
     // </div>
-    <div className="container">
+    <div className="container">    
     <NotesContext.Provider value={contextValue}>
       <Menu />
       <NoteList />
     </NotesContext.Provider>
+    <Bootstrapfontawesometest />
   </div>
   );
 }

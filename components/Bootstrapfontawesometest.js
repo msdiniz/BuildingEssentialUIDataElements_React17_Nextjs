@@ -3,7 +3,7 @@ function BootstrapFontawesomeTest() {
     <div className="container">
       <div className="jumbotron">
         <h1 className="display-4">
-          Conformation of Bootstrap and Fontawesome!
+          Confirmation of Bootstrap and Fontawesome working!
         </h1>
         <p className="lead">
           This message should be contained in a bootstrap jumbotron, and the
