@@ -1,8 +1,14 @@
 import NoteCard from "./NoteCard.js";
 // import notes from "../data/notes.json";
 // import { useEffect, useState } from "react";
+import { NotesContext } from "./App";
+import { useContext } from "react";
 
-function NoteList({ notesData, updateNote, deleteNote }) {
+// function NoteList({ notesData, updateNote, deleteNote }) {
+function NoteList() {
+  
+  const { notesData } = useContext(NotesContext);  
+
   function sortByDate(a, b) {
     const dateA = a.createDate;
     const dateB = b.createDate;
@@ -18,8 +24,8 @@ function NoteList({ notesData, updateNote, deleteNote }) {
           <NoteCard
             note={noteItem}
             key={noteItem.id}
-            updateNote={updateNote}
-            deleteNote={deleteNote}
+            // updateNote={updateNote}
+            // deleteNote={deleteNote}
           />
         );       
       })}

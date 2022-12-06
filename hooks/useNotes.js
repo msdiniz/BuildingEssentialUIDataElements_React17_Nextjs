@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 function useNotes() {
   const [notesData, setNotesData] = useState();
   const [notesDataError, setNotesDataError] = useState();
+  const [dateFormat, setDateFormat ] = useState();
 
   useEffect(() => {
     async function getData() {
@@ -18,6 +19,19 @@ function useNotes() {
     getData();
   }, []);
 
+  function chooseDateFormat(format) {
+    switch (format) {
+      case "en": 
+        setDateFormat("pt");
+        console.debug("pt");
+        break;        
+      case "pt": 
+        setDateFormat("en");
+        console.debug("en");
+        break;
+    }
+  };
+
   function createNote(title, description) {
     const newNote = {
       id: uuidv4(),
@@ -28,6 +42,7 @@ function useNotes() {
     setNotesData((oldNotes) => {
       return [...oldNotes, newNote]; // Order does not matter as sort happens later
     });
+    console.debug("createNote");
   }
 
   function updateNote(id, title, description) {
@@ -52,7 +67,7 @@ function useNotes() {
     });
   }
 
-  return { notesData, notesDataError, createNote, updateNote, deleteNote };
+  return { notesData, notesDataError, chooseDateFormat, createNote, updateNote, deleteNote };
 }
 
 export default useNotes;

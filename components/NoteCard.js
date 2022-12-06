@@ -1,5 +1,12 @@
-function NoteCard({ note, updateNote, deleteNote }) {
+import { NotesContext } from "./App";
+import { useContext } from "react";
+
+//function NoteCard({ note, updateNote, deleteNote }) {
   // here I named ^^^^^^ but there props is passed as noteItem at NoteList
+function NoteCard({ note }) {
+  const { updateNote, deleteNote, chooseDateFormat } = useContext(NotesContext);  
+  const { dateFormat } = chooseDateFormat;
+
   function editNoteFn(noteId) {
     updateNote(noteId, undefined, `${note.description} : Updated` + new Date());
   }
@@ -16,7 +23,7 @@ function NoteCard({ note, updateNote, deleteNote }) {
         </div>
 
         <p className="note-date font-12 text-muted">
-          {new Date(note.createDate).toLocaleTimeString("pt", {
+          {new Date(note.createDate).toLocaleTimeString({dateFormat}, {
             //TODO: use useContext to localize the time between en and pt
             year: "numeric",
             month: "long",
