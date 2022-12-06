@@ -3,8 +3,8 @@ import { useContext } from "react";
 import * as React from 'react';
 
 function Menu() {
-  const { createNote, chooseDateFormat } = useContext(NotesContext);
-  const [checked, setChecked] = React.useState(false);
+  const { createNote, dateFormat, chooseDateFormat } = useContext(NotesContext);
+  const [ checked, setChecked] = React.useState(false);
 
   const handleChange = () => {
     setChecked(!checked);
@@ -53,7 +53,7 @@ function Menu() {
         value={checked}
         onChange={handleChange}
       />
-      <p>Time format is {checked ? "English" : "Português"} </p>       {/* {checked.toString()} */}
+      <p>Time format is {checked ? "English" : "Português"} and dateFormat is {dateFormat} </p>       {/* {checked.toString()} */}
     </div>        
       </li>
     </ul>

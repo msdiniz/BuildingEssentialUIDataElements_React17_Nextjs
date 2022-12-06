@@ -13,7 +13,7 @@ export const NotesContext = createContext({
   createNote: () => {},
   updateNote: () => {},
   deleteNote: () => {},
-  dateFormat: "en"
+  dateFormat: ""
 });
 
 function App() {

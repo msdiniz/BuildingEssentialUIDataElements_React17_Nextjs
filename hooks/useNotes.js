@@ -67,7 +67,7 @@ function useNotes() {
     });
   }
 
-  return { notesData, notesDataError, chooseDateFormat, createNote, updateNote, deleteNote };
+  return { notesData, notesDataError, dateFormat, chooseDateFormat, createNote, updateNote, deleteNote };
 }
 
 export default useNotes;

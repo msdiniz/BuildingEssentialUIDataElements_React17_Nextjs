@@ -4,9 +4,9 @@ import { useContext } from "react";
 //function NoteCard({ note, updateNote, deleteNote }) {
   // here I named ^^^^^^ but there props is passed as noteItem at NoteList
 function NoteCard({ note }) {
-  const { updateNote, deleteNote, chooseDateFormat } = useContext(NotesContext);  
-  const { dateFormat } = chooseDateFormat;
-
+  const { updateNote, deleteNote, dateFormat } = useContext(NotesContext);  
+  //const { dateFormat } = chooseDateFormat;
+  
   function editNoteFn(noteId) {
     updateNote(noteId, undefined, `${note.description} : Updated` + new Date());
   }
