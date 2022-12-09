@@ -42,7 +42,6 @@ function useNotes() {
     setNotesData((oldNotes) => {
       return [...oldNotes, newNote]; // Order does not matter as sort happens later
     });
-    console.debug("createNote");
   }
 
   function updateNote(id, title, description) {

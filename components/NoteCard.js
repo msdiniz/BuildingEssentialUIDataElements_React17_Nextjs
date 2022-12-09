@@ -1,14 +1,26 @@
-import { NotesContext } from "./App";
+import { NotesContext, NotesModalContext } from "./App";
 import { useContext } from "react";
 
 //function NoteCard({ note, updateNote, deleteNote }) {
   // here I named ^^^^^^ but there props is passed as noteItem at NoteList
 function NoteCard({ note }) {
-  const { updateNote, deleteNote, dateFormat } = useContext(NotesContext);  
+  const { notesData, deleteNote, dateFormat } = useContext(NotesContext);  
   //const { dateFormat } = chooseDateFormat;
-  
+  const {
+    setModalNoteId,
+    setModalShow,
+    setModalNoteTitle,
+    setModalNoteDescription,
+  } = useContext(NotesModalContext);
+
   function editNoteFn(noteId) {
-    updateNote(noteId, undefined, `${note.description} : Updated` + new Date());
+    // updateNote(noteId, undefined, `${note.description} : Updated` + new Date());
+    setModalNoteId(noteId);
+    setModalNoteTitle(notesData.find((rec) => rec.id === noteId).title);
+    setModalNoteDescription(
+      notesData.find((rec) => rec.id === noteId).description
+    );
+    setModalShow(true);
   }
 
   function deleteNoteFn(noteId) {

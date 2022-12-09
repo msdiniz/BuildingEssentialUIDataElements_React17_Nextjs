@@ -1,4 +1,5 @@
 import NoteCard from "./NoteCard.js";
+import NotesModal from "./NotesModal/NotesModal";
 // import notes from "../data/notes.json";
 // import { useEffect, useState } from "react";
 import { NotesContext } from "./App";
@@ -6,8 +7,8 @@ import { useContext } from "react";
 
 // function NoteList({ notesData, updateNote, deleteNote }) {
 function NoteList() {
-  
-  const { notesData } = useContext(NotesContext);  
+
+  const { notesData } = useContext(NotesContext);
 
   function sortByDate(a, b) {
     const dateA = a.createDate;
@@ -16,20 +17,23 @@ function NoteList() {
   }
 
   return (
-    <div className="row tab-content bg-transparent note-has-grid">
-      {notesData.sort(sortByDate).map((noteItem) => {
-        // return <NoteCard note={noteItem} key={noteItem.id} />;
-        // // here I named noteItem ^^^^ but props is passed to note at NoteCard
-        return (
-          <NoteCard
-            note={noteItem}
-            key={noteItem.id}
+    <>
+      {notesData && <NotesModal />}
+      <div className="row tab-content bg-transparent note-has-grid">
+        {notesData.sort(sortByDate).map((noteItem) => {
+          // return <NoteCard note={noteItem} key={noteItem.id} />;
+          // // here I named noteItem ^^^^ but props is passed to note at NoteCard
+          return (
+            <NoteCard
+              note={noteItem}
+              key={noteItem.id}
             // updateNote={updateNote}
             // deleteNote={deleteNote}
-          />
-        );       
-      })}
-    </div>
+            />
+          );
+        })}
+      </div>
+    </>
   );
 }
 

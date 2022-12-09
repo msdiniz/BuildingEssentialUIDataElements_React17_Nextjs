@@ -1,12 +1,19 @@
+import { NotesModalContext } from "./App";
 import { NotesContext } from "./App";
 import { useContext } from "react";
 import * as React from 'react';
-import { Button, ButtonToolbar } from 'react-bootstrap';
 
 function Menu() {
-  const { createNote, dateFormat, chooseDateFormat } = useContext(NotesContext);
+  const { dateFormat, chooseDateFormat } = useContext(NotesContext);
   //const isEnglish = dateFormat === "en";
   const [checked, setChecked] = React.useState(dateFormat === "en");
+
+  const { 
+    setModalNoteId,
+    setModalNoteTitle,
+    setModalNoteDescription,
+    setModalShow
+   } = useContext(NotesModalContext);
 
   const handleChange = () => {
     setChecked(!checked);
@@ -25,15 +32,10 @@ function Menu() {
     );
   };
   function createNoteFn() {
-    const timeOfDay = new Date().toLocaleTimeString(dateFormat, {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
-    createNote(
-      `Note at ${timeOfDay}`,
-      `This sample note created at ${timeOfDay}`
-    );
+    setModalNoteId(0);
+    setModalNoteTitle("");
+    setModalNoteDescription("");
+    setModalShow(true);
   }
 
   return (
