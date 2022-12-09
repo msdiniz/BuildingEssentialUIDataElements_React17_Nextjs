@@ -12,13 +12,13 @@ function BootstrapFontawesomeTest() {
       </div>
       <ul>
         <li>
-          <i className="fas fa-coffee fa-lg"></i>
+          <i className="fa fa-coffee fa-lg"></i>
         </li>
         <li>
-          <i className="fas fa-thumbtack fa-lg"></i>
+          <i className="fa fa-thumbtack fa-lg"></i>
         </li>
         <li>
-          <i className="fas fa-thumbtack fa-rotate-90"></i>
+          <i className="fa fa-thumbtack fa-rotate-90"></i>
         </li>
         <li>
           <i className="fa fa-times-circle"></i>

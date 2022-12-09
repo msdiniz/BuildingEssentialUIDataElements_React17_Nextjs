@@ -1,11 +1,12 @@
 import { NotesContext } from "./App";
 import { useContext } from "react";
 import * as React from 'react';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 
 function Menu() {
   const { createNote, dateFormat, chooseDateFormat } = useContext(NotesContext);
   //const isEnglish = dateFormat === "en";
-  const [ checked, setChecked] = React.useState(dateFormat === "en");
+  const [checked, setChecked] = React.useState(dateFormat === "en");
 
   const handleChange = () => {
     setChecked(!checked);
@@ -48,14 +49,14 @@ function Menu() {
         </a>
       </li>
       <li className="nav-item ml-auto">
-      <div>
-      <Checkbox
-        label="American US time format?"
-        value={checked}
-        onChange={handleChange}
-      />
-      <p>Time format is {checked ? "English" : "Português"} and dateFormat is {dateFormat} </p>       {/* {checked.toString()} */}
-    </div>        
+        <div>
+          <Checkbox
+            label="American US time format?"
+            value={checked}
+            onChange={handleChange}
+          />
+          <p>Time format is {checked ? "English" : "Português"} and dateFormat is {dateFormat} </p>       {/* {checked.toString()} */}
+        </div>
       </li>
     </ul>
   );
