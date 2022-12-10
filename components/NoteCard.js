@@ -36,7 +36,7 @@ function NoteCard({ note }) {
 
         <p className="note-date font-12 text-muted">
           {new Date(note.createDate).toLocaleTimeString(dateFormat, {
-            //TODO: use useContext to localize the time between en and pt
+            //DONE: use useContext to localize the time between en and pt
             year: "numeric",
             month: "long",
             day: "numeric",

@@ -18,7 +18,7 @@ function useGeneralizedCrudMethods(initialData, delayMs = 1000) {
 
   function createRecord(createObject) {
     async function addData() {
-      await new Promise(resolve => setTimeout(resolve, delayMs));
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
       setData(function (origState) {
         return [...origState, createObject];// Order does not matter as sort happens later
       });
@@ -27,30 +27,34 @@ function useGeneralizedCrudMethods(initialData, delayMs = 1000) {
   }
   function updateRecord(id, updateObject) {
     async function updateData() {
-      await new Promise(resolve => setTimeout(resolve, delayMs));
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
       setData(function (origState) {
-        const dataRecord = origState.find(rec => rec.id === id);
+        const dataRecord = origState.find((rec) => rec.id === id);
         for (const [key, value] of Object.entries(updateObject)) {
           dataRecord[key] = value === undefined ? dataRecord[key] : value;
         }
-        return origState.map(rec => rec.id === id ? dataRecord : rec);
+        return origState.map((rec) => (rec.id === id ? dataRecord : rec));
       });
     }
     updateData();
   }
-
-  function deleteRecord(id) { 
+  function deleteRecord(id) {
     async function deleteData() {
-      await new Promise(resolve => setTimeout(resolve, delayMs));
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
       setData(function (origState) {
-        return origState.filter(rec => rec.id != id);
+        return origState.filter((rec) => rec.id != id);
       });
     }
     deleteData();
   }
 
-  return { data, error, createRecord, updateRecord, deleteRecord };
+  return {
+    data,
+    error,
+    createRecord,
+    updateRecord,
+    deleteRecord,
+  };
 }
-
 
 export default useGeneralizedCrudMethods;
