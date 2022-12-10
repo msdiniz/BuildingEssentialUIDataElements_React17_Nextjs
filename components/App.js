@@ -6,7 +6,8 @@ import Bootstrapfontawesometest from "./Bootstrapfontawesometest.js";
 import useNotes from "../hooks/useNotes";
 import useNotesModal from "../hooks/useNotesModal";
 import Menu from "./Menu";
-import { createContext } from "react";
+import { useState, createContext } from "react";
+import NoteChangeLogs from "./NoteChangeLogs.js";
 
 export const NotesContext = createContext({
   notesData: [],
@@ -32,6 +33,7 @@ function App() {
   //const { notesData, notesDataError, createNote, updateNote, deleteNote } = useNotes();
   const contextValue = useNotes();
   const contextValueNotesModal = useNotesModal();
+  const [currentTab, setCurrentTab] = useState("notes"); // ["notes", "logs"]
 
   if (contextValue.notesDataError) {
     return <div className="container">error: {contextValue.notesDataError}</div>;
@@ -44,8 +46,9 @@ function App() {
     <div className="container">
       <NotesContext.Provider value={contextValue}>
         <NotesModalContext.Provider value={contextValueNotesModal}>
-          <Menu />
-          <NoteList />
+          <Menu currentTab={currentTab} setCurrentTab={setCurrentTab} />
+          {currentTab === "notes" && <NoteList />}
+          {currentTab === "logs" && <NoteChangeLogs />}
         </NotesModalContext.Provider>
       </NotesContext.Provider >
       <Bootstrapfontawesometest />

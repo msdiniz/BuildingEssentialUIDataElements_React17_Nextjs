@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useEntityNotes from "./entityMethods/useEntityNotes";
 import useEntityNoteAttributes from "./entityMethods/useEntityNoteAttributes";
+import useEntityNoteChangeLogs from "./entityMethods/useEntityNoteChangeLogs";
 
 function useNotes() {
   const [dateFormat, setDateFormat] = useState("en");
@@ -31,13 +32,21 @@ function useNotes() {
     deleteNoteAttributesEntity,
   } = useEntityNoteAttributes();
 
+  const {
+    data: noteChangeLogsData,
+    error: noteChangeLogsDataError,
+    createNoteChangeLogsEntity,
+  } = useEntityNoteChangeLogs();
+
   function createNote(title, description) {
-    createNoteEntity(title, description);
+    const noteId = createNoteEntity(title, description);
+    createNoteChangeLogsEntity(noteId, "CREATE");
   }
 
   function updateNote(id, title, description, pinned, important) {
     updateNoteEntity(id, title, description);
     updateNoteAttributesEntity(id, pinned, important);
+    createNoteChangeLogsEntity(id, "UPDATE");
   }
 
   function deleteNote(id) {
@@ -52,6 +61,8 @@ function useNotes() {
     noteAttributesDataError,
     dateFormat,
     chooseDateFormat,
+    noteChangeLogsData,
+    noteChangeLogsDataError,
     createNote,
     updateNote,
     deleteNote,
