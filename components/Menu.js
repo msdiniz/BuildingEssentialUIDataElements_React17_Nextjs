@@ -59,7 +59,6 @@ function Menu({ currentTab, setCurrentTab }) {
     );
   }
 
-
   function AddNoteButton() {
     return (
       <li className="nav-item ml-auto">
@@ -72,13 +71,15 @@ function Menu({ currentTab, setCurrentTab }) {
           <span className="d-none d-md-block font-14">Add Notes</span>
         </a>
       </li>
-    )
+    );
   }
 
   return (
     <ul className="nav nav-pills p-3 bg-white mb-3 founded-pill align-items-center">
+      {/* https://stackoverflow.com/questions/42237406/animate-shrink-navbar-on-scroll-using-bootstrap */}
       <TabItem tabValue="notes" tabText="All Notes" />
       <TabItem tabValue="logs" tabText="Change Logs" />
+      <TabItem tabValue="bootstrapfontawesome" tabText="Format Test" />
       {currentTab === "notes" && <AddNoteButton />}
       <li className="nav-item ml-auto">
         <div>

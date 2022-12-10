@@ -49,9 +49,9 @@ function App() {
           <Menu currentTab={currentTab} setCurrentTab={setCurrentTab} />
           {currentTab === "notes" && <NoteList />}
           {currentTab === "logs" && <NoteChangeLogs />}
+          {currentTab === "bootstrapfontawesome" && <Bootstrapfontawesometest />}
         </NotesModalContext.Provider>
       </NotesContext.Provider >
-      <Bootstrapfontawesometest />
     </div>
   );
 }
