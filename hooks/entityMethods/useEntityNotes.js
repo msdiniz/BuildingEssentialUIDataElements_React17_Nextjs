@@ -28,7 +28,13 @@ function useEntityNotes() {
     deleteRecord(id);
   }
 
-  return { data, error, createNoteEntity, updateNoteEntity, deleteNoteEntity };
+  return {
+    data,
+    error,
+    createNoteEntity,
+    updateNoteEntity,
+    deleteNoteEntity,
+  };
 }
 
 export default useEntityNotes;

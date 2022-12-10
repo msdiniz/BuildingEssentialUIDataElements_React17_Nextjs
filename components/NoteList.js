@@ -1,14 +1,10 @@
 import NoteCard from "./NoteCard.js";
-import NotesModal from "./NotesModal/NotesModal";
-// import notes from "../data/notes.json";
-// import { useEffect, useState } from "react";
 import { NotesContext } from "./App";
 import { useContext } from "react";
+import NotesModal from "./NotesModal/NotesModal";
 
-// function NoteList({ notesData, updateNote, deleteNote }) {
 function NoteList() {
-
-  const { notesData } = useContext(NotesContext);
+  const { notesData, noteAttributesData } = useContext(NotesContext);
 
   function sortByDate(a, b) {
     const dateA = a.createDate;
@@ -16,22 +12,31 @@ function NoteList() {
     return dateA > dateB ? -1 : dateA < dateB ? 1 : 0;
   }
 
+  if (!(notesData && noteAttributesData)) return null;
+
+  const notesPinned = noteAttributesData
+    .filter((na) => na.pinned === 1)
+    .map((na) => na.noteId);
+
   return (
     <>
       {notesData && <NotesModal />}
       <div className="row tab-content bg-transparent note-has-grid">
-        {notesData.sort(sortByDate).map((noteItem) => {
-          // return <NoteCard note={noteItem} key={noteItem.id} />;
-          // // here I named noteItem ^^^^ but props is passed to note at NoteCard
-          return (
-            <NoteCard
-              note={noteItem}
-              key={noteItem.id}
-            // updateNote={updateNote}
-            // deleteNote={deleteNote}
-            />
-          );
-        })}
+        {notesData
+          .filter((n) => notesPinned.includes(n.id))
+          .sort(sortByDate)
+          .map((note) => {
+            return <NoteCard note={note} key={note.id} />;
+          })}
+      </div>
+      {notesPinned.length > 0 ? <hr /> : null}
+      <div className="row tab-content bg-transparent note-has-grid">
+        {notesData
+          .filter((n) => !notesPinned.includes(n.id))
+          .sort(sortByDate)
+          .map((note) => {
+            return <NoteCard note={note} key={note.id} />;
+          })}
       </div>
     </>
   );

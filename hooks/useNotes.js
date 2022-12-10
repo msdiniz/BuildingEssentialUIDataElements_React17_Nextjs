@@ -1,29 +1,9 @@
-import useGeneralizedCrudMethods from "./useGeneralizedCrudMethods";
 import { useState } from "react";
-import notes from "../data/notes.json";
-import noteAttributes from "../data/noteAttributes";
-import { v4 as uuidv4 } from "uuid";
 import useEntityNotes from "./entityMethods/useEntityNotes";
+import useEntityNoteAttributes from "./entityMethods/useEntityNoteAttributes";
 
 function useNotes() {
   const [dateFormat, setDateFormat] = useState("en");
-
-  const {
-    data: notesData,
-    error: notesDataError,
-    createNoteEntity,
-    updateNoteEntity,
-    deleteNoteEntity
-  } = useEntityNotes();
-
-  const {
-    data: noteAttributesData,
-    erro: noteAttributesDataError,
-    createRecord: createNoteAttributesData,
-    updateRecord: updateNoteAttributesData,
-    deleteRecord: deleteNoteAttributesData
-  } = useGeneralizedCrudMethods(noteAttributes);
-
   function chooseDateFormat(format) {
     switch (format) {
       case "en":
@@ -36,43 +16,33 @@ function useNotes() {
         break;
     }
   };
+  const {
+    data: notesData,
+    error: notesDataError,
+    createNoteEntity,
+    updateNoteEntity,
+    deleteNoteEntity,
+  } = useEntityNotes();
+
+  const {
+    data: noteAttributesData,
+    error: noteAttributesDataError,
+    updateNoteAttributesEntity,
+    deleteNoteAttributesEntity,
+  } = useEntityNoteAttributes();
 
   function createNote(title, description) {
-    createNoteEntity(title, description); // Order does not matter as sort happens later
+    createNoteEntity(title, description);
   }
 
   function updateNote(id, title, description, pinned, important) {
-    // const updateObject = {
-    //   title, description
-    // };
-    // updateNotesData(id, updateObject);
     updateNoteEntity(id, title, description);
-
-    const noteAttributes = noteAttributesData.find((rec) => rec.noteId === id);
-    if (noteAttributes) {
-      updateNoteAttributesData(noteAttributes.id, {
-        pinned: pinned === undefined ? undefined : Number(pinned),
-        important: important === undefined ? undefined : Number(important),
-        updateDate: new Date().toISOString(),
-      });
-    } else {
-      createNoteAttributesData({
-        id: uuidv4(),
-        noteId: id,
-        pinned: pinned === undefined ? undefined : Number(pinned),
-        important: important === undefined ? undefined : Number(important),
-        updateDate: new Date().toISOString(),
-      });
-    }
+    updateNoteAttributesEntity(id, pinned, important);
   }
 
   function deleteNote(id) {
     deleteNoteEntity(id);
-    noteAttributesData
-      .filter((rec) => rec.noteId === id)
-      .forEach((rec) => {
-        deleteNoteAttributesData(rec.id);
-      });
+    deleteNoteAttributesEntity(id);
   }
 
   return {
@@ -84,7 +54,7 @@ function useNotes() {
     chooseDateFormat,
     createNote,
     updateNote,
-    deleteNote
+    deleteNote,
   };
 }
 
