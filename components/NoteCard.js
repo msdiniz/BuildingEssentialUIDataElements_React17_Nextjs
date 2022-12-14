@@ -4,14 +4,22 @@ import { useContext } from "react";
 //function NoteCard({ note, updateNote, deleteNote }) {
   // here I named ^^^^^^ but there props is passed as noteItem at NoteList
 function NoteCard({ note }) {
-  const { notesData, noteAttributesData, deleteNote, updateNote, dateFormat } =
-    useContext(NotesContext);
-      //const { dateFormat } = chooseDateFormat;
+  const {
+    notesData,
+    noteAttributesData,
+    tagsData,
+    noteOnTagsData,
+    updateNote,
+    deleteNote,
+    dateFormat
+  } = useContext(NotesContext);
   const {
     setModalNoteId,
     setModalShow,
     setModalNoteTitle,
     setModalNoteDescription,
+    setModalNoteTagIds,
+    setTagNamesNewValue,
   } = useContext(NotesModalContext);
 
   function editNoteFn(noteId) {
@@ -20,6 +28,13 @@ function NoteCard({ note }) {
     setModalNoteDescription(
       notesData.find((rec) => rec.id === noteId).description
     );
+    setTagNamesNewValue("");
+    setModalNoteTagIds(
+      noteOnTagsData
+        .filter((rec) => rec.noteId === noteId)
+        .map((rec) => rec.tagId)
+    );
+
     setModalShow(true);
   }
 
@@ -33,6 +48,63 @@ function NoteCard({ note }) {
 
   const notePinned = noteAttributes?.pinned === 1 ? true : false;
   const noteImportant = noteAttributes?.important === 1 ? true : false;
+
+  const tagsDataDictionary = tagsData
+    ? Object.fromEntries(tagsData.map(({ id, tagName }) => [id, tagName]))
+    : [];
+
+  const noteTags = noteOnTagsData
+    ? noteOnTagsData
+        .filter((r) => r.noteId === note.id)
+        .map((r) => {
+          return {
+            ...r,
+            tagName: tagsDataDictionary[r.tagId],
+          };
+        })
+    : [];
+
+  function NoteTagsSection() {
+    return (
+      <div className="row margin-left-right-15">
+        {noteTags
+          .sort(function (a, b) {
+            const textA = a?.tagName?.toUpperCase();
+            const textB = b?.tagName?.toUpperCase();
+            return textA < textB ? -1 : textA > textB ? 1 : 0;
+          })
+          .map((noteTag) => {
+            return (
+              <div key={noteTag.id}>
+                <span className="textbox-tag">
+                  {noteTag.tagName}&nbsp;
+                  <a
+                    href="#"
+                    onClick={() => {
+                      const tagIdsForNote = noteTags
+                        .filter((rec) => rec.tagId != noteTag.tagId)
+                        .map((rec) => rec.tagId);
+                      updateNote(
+                        note.id,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        tagIdsForNote,
+                        undefined
+                      );
+                    }}
+                  >
+                    {" "}
+                    <i className="icon fa fa-times-circle"></i>{" "}
+                  </a>
+                </span>
+              </div>
+            );
+          })}
+      </div>
+    );
+  }
 
   return (
     <div className="col-md-4 single-note-item all-category">
@@ -109,6 +181,9 @@ function NoteCard({ note }) {
               <i className="fa fa-edit fa-lg"></i>
             </a>
           </span>
+        </div>
+        <div className="margin-top-10">
+          <NoteTagsSection />
         </div>
       </div>
     </div>

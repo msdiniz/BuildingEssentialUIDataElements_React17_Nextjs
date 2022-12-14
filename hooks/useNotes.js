@@ -2,6 +2,8 @@ import { useState } from "react";
 import useEntityNotes from "./entityMethods/useEntityNotes";
 import useEntityNoteAttributes from "./entityMethods/useEntityNoteAttributes";
 import useEntityNoteChangeLogs from "./entityMethods/useEntityNoteChangeLogs";
+import useEntityTags from "./entityMethods/useEntityTags";
+import useEntityNoteOnTags from "./entityMethods/useEntityNoteOnTags";
 
 function useNotes() {
   const [dateFormat, setDateFormat] = useState("en");
@@ -38,20 +40,47 @@ function useNotes() {
     createNoteChangeLogsEntity,
   } = useEntityNoteChangeLogs();
 
-  function createNote(title, description) {
+  const {
+    data: tagsData,
+    error: tagsDataError,
+    createTagsAndMerge,
+  } = useEntityTags();
+
+  const {
+    data: noteOnTagsData,
+    error: noteOnTagsDataError,
+    updateNoteTags,
+    deleteNoteOnTagsByNoteId,
+  } = useEntityNoteOnTags();
+
+  function createNote(title, description, tagIdsIn, tagNamesIn) {
+    // could create Id noteId here and pass in to createNoteEntity as alternative
     const noteId = createNoteEntity(title, description);
     createNoteChangeLogsEntity(noteId, "CREATE");
+    const tagIds = createTagsAndMerge(tagIdsIn, tagNamesIn);
+    updateNoteTags(tagIds, noteId);
   }
 
-  function updateNote(id, title, description, pinned, important) {
+  function updateNote(
+    id,
+    title,
+    description,
+    pinned,
+    important,
+    tagIdsIn,
+    tagNamesIn
+  ) {
     updateNoteEntity(id, title, description);
     updateNoteAttributesEntity(id, pinned, important);
     createNoteChangeLogsEntity(id, "UPDATE");
+    const tagIds = createTagsAndMerge(tagIdsIn, tagNamesIn);
+    updateNoteTags(tagIds, id);
   }
 
   function deleteNote(id) {
     deleteNoteEntity(id);
     deleteNoteAttributesEntity(id);
+    deleteNoteOnTagsByNoteId(id);
   }
 
   return {
@@ -63,6 +92,10 @@ function useNotes() {
     chooseDateFormat,
     noteChangeLogsData,
     noteChangeLogsDataError,
+    tagsData,
+    tagsDataError,
+    noteOnTagsData,
+    noteOnTagsDataError,
     createNote,
     updateNote,
     deleteNote,

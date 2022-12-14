@@ -3,11 +3,11 @@ import NotesModalBody from "./NotesModalBody";
 import NotesModalFooter from "./NotesModalFooter";
 import { NotesModalContext } from "../App";
 import { useContext } from "react";
+import NotesModalTags from "./NotesModalTags";
 
 function NotesModal() {
-  //const { modalShow, setmodalShow } = useState(false);
   const { modalShow } = useContext(NotesModalContext);
-  let cssShowHide =
+  const cssShowHide =
     modalShow && modalShow === true ? "modal show-modal" : "modal hide-modal";
 
   return (
@@ -27,6 +27,7 @@ function NotesModal() {
           <div className="modal-content border-0">
             <NotesModalHeader />
             <NotesModalBody />
+            <NotesModalTags />
             <NotesModalFooter />
           </div>
         </div>

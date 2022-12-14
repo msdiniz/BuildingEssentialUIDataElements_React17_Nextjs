@@ -12,6 +12,7 @@ import NoteChangeLogs from "./NoteChangeLogs.js";
 export const NotesContext = createContext({
   notesData: [],
   notesDataError: "",
+
   createNote: () => { },
   updateNote: () => { },
   deleteNote: () => { },
@@ -20,13 +21,17 @@ export const NotesContext = createContext({
 
 export const NotesModalContext = createContext({
   modalShow: false,
-  setModalShow: () => { },
+  setModalShow: () => {},
   modalNoteId: 0,
-  setModalNoteId: () => { },
-  modalNoteTitle: "",
-  setModalNoteTitle: () => { },
-  modalNoteDescription: "",
-  setModalNoteDescription: () => { },
+  setModalNoteId: () => {},
+  modalTitle: "",
+  setModalTitle: () => {},
+  modalDescription: "",
+  setModalDescription: () => {},
+  modalNoteTagIds: [],
+  setModalNoteTagIds: () => {},
+  tagNamesNewValue: "",
+  setTagNamesNewValue: () => {},
 });
 
 function App() {
@@ -36,7 +41,9 @@ function App() {
   const [currentTab, setCurrentTab] = useState("notes"); // ["notes", "logs"]
 
   if (contextValue.notesDataError) {
-    return <div className="container">error: {contextValue.notesDataError}</div>;
+    return (
+      <div className="container">error: {contextValue.notesDataError}</div>
+    );
   }
   if (!contextValue.notesData) {
     return <div className="container">...loading</div>;

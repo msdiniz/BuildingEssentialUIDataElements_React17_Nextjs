@@ -3,8 +3,10 @@ import { useContext } from "react";
 
 function NotesModalBody() {
   const {
-    modalNoteTitle, setModalNoteTitle,
-    modalNoteDescription, setModalNoteDescription,
+    modalNoteTitle,
+    setModalNoteTitle,
+    modalNoteDescription,
+    setModalNoteDescription,
   } = useContext(NotesModalContext);
   return (
     <div className="modal-body">

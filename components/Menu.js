@@ -12,7 +12,9 @@ function Menu({ currentTab, setCurrentTab }) {
     setModalNoteId,
     setModalNoteTitle,
     setModalNoteDescription,
-    setModalShow
+    setModalShow,
+    setTagNamesNewValue,
+    setModalNoteTagIds,
   } = useContext(NotesModalContext);
 
   const handleChange = () => {
@@ -35,6 +37,8 @@ function Menu({ currentTab, setCurrentTab }) {
     setModalNoteId(0);
     setModalNoteTitle("");
     setModalNoteDescription("");
+    setTagNamesNewValue("");
+    setModalNoteTagIds([]);
     setModalShow(true);
   }
 
