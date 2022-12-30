@@ -1,7 +1,5 @@
 node_modules
-/.next
-*.pack
-.next/
+.next
 components_template
 pages_template
 
