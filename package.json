@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3005",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 3005"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.36",
@@ -19,6 +19,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.1.5",
     "eslint": "^7.22.0",
     "eslint-config-next": "^11.0.1",
     "eslint-plugin-react": "^7.23.1",
