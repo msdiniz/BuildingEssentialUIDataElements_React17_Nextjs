@@ -1,10 +1,9 @@
-import { NotesModalContext } from "./App";
-import { NotesContext } from "./App";
+import { NotesContext, NotesModalContext, LayoutConfigContext  } from "./App";
 import { useContext } from "react";
 import * as React from 'react';
 
 function Menu({ currentTab, setCurrentTab }) {
-  const { dateFormat, chooseDateFormat } = useContext(NotesContext);
+  const { dateFormat, chooseDateFormat } = useContext(LayoutConfigContext);
   //const isEnglish = dateFormat === "en";
   const [checked, setChecked] = React.useState(dateFormat === "en");
 

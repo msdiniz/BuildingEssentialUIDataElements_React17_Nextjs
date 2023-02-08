@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import useEntityNotes from "./entityMethods/useEntityNotes";
 import useEntityNoteAttributes from "./entityMethods/useEntityNoteAttributes";
 import useEntityNoteChangeLogs from "./entityMethods/useEntityNoteChangeLogs";
@@ -6,19 +6,19 @@ import useEntityTags from "./entityMethods/useEntityTags";
 import useEntityNoteOnTags from "./entityMethods/useEntityNoteOnTags";
 
 function useNotes() {
-  const [dateFormat, setDateFormat] = useState("en");
-  function chooseDateFormat(format) {
-    switch (format) {
-      case "en":
-        setDateFormat("pt");
-        console.debug("pt");
-        break;
-      case "pt":
-        setDateFormat("en");
-        console.debug("en");
-        break;
-    }
-  };
+  // const [dateFormat, setDateFormat] = useState("en");
+  // function chooseDateFormat(format) {
+  //   switch (format) {
+  //     case "en":
+  //       setDateFormat("pt");
+  //       console.debug("pt");
+  //       break;
+  //     case "pt":
+  //       setDateFormat("en");
+  //       console.debug("en");
+  //       break;
+  //   }
+  // };
   const {
     data: notesData,
     error: notesDataError,
@@ -89,7 +89,7 @@ function useNotes() {
     noteAttributesData,
     noteAttributesDataError,
     dateFormat,
-    chooseDateFormat,
+    // chooseDateFormat,
     noteChangeLogsData,
     noteChangeLogsDataError,
     tagsData,

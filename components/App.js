@@ -8,6 +8,7 @@ import useNotesModal from "../hooks/useNotesModal";
 import Menu from "./Menu";
 import { useState, createContext } from "react";
 import NoteChangeLogs from "./NoteChangeLogs.js";
+import useLayoutConfig from './../hooks/useLayoutConfig';
 
 export const NotesContext = createContext({
   notesData: [],
@@ -15,29 +16,34 @@ export const NotesContext = createContext({
 
   createNote: () => { },
   updateNote: () => { },
-  deleteNote: () => { },
+  deleteNote: () => { } //,
+  // dateFormat: ""
+});
+
+export const LayoutConfigContext = createContext({
   dateFormat: ""
 });
 
 export const NotesModalContext = createContext({
   modalShow: false,
-  setModalShow: () => {},
+  setModalShow: () => { },
   modalNoteId: 0,
-  setModalNoteId: () => {},
+  setModalNoteId: () => { },
   modalTitle: "",
-  setModalTitle: () => {},
+  setModalTitle: () => { },
   modalDescription: "",
-  setModalDescription: () => {},
+  setModalDescription: () => { },
   modalNoteTagIds: [],
-  setModalNoteTagIds: () => {},
+  setModalNoteTagIds: () => { },
   tagNamesNewValue: "",
-  setTagNamesNewValue: () => {},
+  setTagNamesNewValue: () => { },
 });
 
 function App() {
   //const { notesData, notesDataError, createNote, updateNote, deleteNote } = useNotes();
   const contextValue = useNotes();
   const contextValueNotesModal = useNotesModal();
+  const contextLayoutConfig = useLayoutConfig();
   const [currentTab, setCurrentTab] = useState("notes"); // ["notes", "logs"]
 
   if (contextValue.notesDataError) {
@@ -51,14 +57,16 @@ function App() {
 
   return (
     <div className="container">
-      <NotesContext.Provider value={contextValue}>
-        <NotesModalContext.Provider value={contextValueNotesModal}>
-          <Menu currentTab={currentTab} setCurrentTab={setCurrentTab} />
-          {currentTab === "notes" && <NoteList />}
-          {currentTab === "logs" && <NoteChangeLogs />}
-          {currentTab === "bootstrapfontawesome" && <Bootstrapfontawesometest />}
-        </NotesModalContext.Provider>
-      </NotesContext.Provider >
+      <LayoutConfigContext.Provider value={contextLayoutConfig}>
+        <NotesContext.Provider value={contextValue}>
+          <NotesModalContext.Provider value={contextValueNotesModal}>
+            <Menu currentTab={currentTab} setCurrentTab={setCurrentTab} />
+            {currentTab === "notes" && <NoteList />}
+            {currentTab === "logs" && <NoteChangeLogs />}
+            {currentTab === "bootstrapfontawesome" && <Bootstrapfontawesometest />}
+          </NotesModalContext.Provider>
+        </NotesContext.Provider >
+      </LayoutConfigContext.Provider>
     </div>
   );
 }
