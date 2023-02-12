@@ -39,12 +39,18 @@ export const NotesModalContext = createContext({
   setTagNamesNewValue: () => { },
 });
 
+const menuItems = [
+  { value: "notes", text: "All Notes" },
+  { value: "logs", text: "Change Logs" },
+  { value: "bootstrapfontawesome", text: "Format Test" },
+];
+
 function App() {
   //const { notesData, notesDataError, createNote, updateNote, deleteNote } = useNotes();
   const contextValue = useNotes();
   const contextValueNotesModal = useNotesModal();
   const contextLayoutConfig = useLayoutConfig();
-  const [currentTab, setCurrentTab] = useState("notes"); // ["notes", "logs"]
+  const [currentTab, setCurrentTab] = useState(menuItems[0].value); // ["notes", "logs"]
 
   if (contextValue.notesDataError) {
     return (
@@ -60,7 +66,7 @@ function App() {
       <LayoutConfigContext.Provider value={contextLayoutConfig}>
         <NotesContext.Provider value={contextValue}>
           <NotesModalContext.Provider value={contextValueNotesModal}>
-            <Menu currentTab={currentTab} setCurrentTab={setCurrentTab} />
+            <Menu currentTab={currentTab} setCurrentTab={setCurrentTab} menuItems={menuItems} />
             {currentTab === "notes" && <NoteList />}
             {currentTab === "logs" && <NoteChangeLogs />}
             {currentTab === "bootstrapfontawesome" && <Bootstrapfontawesometest />}

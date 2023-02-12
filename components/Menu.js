@@ -2,7 +2,7 @@ import { NotesContext, NotesModalContext, LayoutConfigContext  } from "./App";
 import { useContext } from "react";
 import * as React from 'react';
 
-function Menu({ currentTab, setCurrentTab }) {
+function Menu({ currentTab, setCurrentTab, menuItems }) {
   const { 
     dateFormat, 
     chooseDateFormat 
@@ -20,7 +20,7 @@ function Menu({ currentTab, setCurrentTab }) {
     setModalNoteTagIds,
   } = useContext(NotesModalContext);
 
-  const handleChange = () => {
+  const handleChangeDateLanguageFormat = () => {
     setChecked(!checked);
     const lang = checked ? "en" : "pt";
     chooseDateFormat(lang);
@@ -84,16 +84,24 @@ function Menu({ currentTab, setCurrentTab }) {
   return (
     <ul className="nav nav-pills p-3 bg-white mb-3 founded-pill align-items-center">
       {/* https://stackoverflow.com/questions/42237406/animate-shrink-navbar-on-scroll-using-bootstrap */}
-      <TabItem tabValue="notes" tabText="All Notes" />
+      {/* <TabItem tabValue="notes" tabText="All Notes" />
       <TabItem tabValue="logs" tabText="Change Logs" />
-      <TabItem tabValue="bootstrapfontawesome" tabText="Format Test" />
+      <TabItem tabValue="bootstrapfontawesome" tabText="Format Test" /> */}
+      {menuItems.map((/** @type {{ value: string; text: string; }} */ item) => {
+        return (
+          <TabItem
+            tabValue={item.value} tabText={item.text} key={`tab-title-${item.value}`}
+          />
+        );
+      }
+      )}      
       {currentTab === "notes" && <AddNoteButton />}
       <li className="nav-item ml-auto">
         <div>
           <Checkbox
             label="American US time format?"
             value={checked}
-            onChange={handleChange}
+            onChange={handleChangeDateLanguageFormat}
           />
           <p>Time format is {checked ? "English" : "Português"} and dateFormat is {dateFormat} </p>       {/* {checked.toString()} */}
         </div>
