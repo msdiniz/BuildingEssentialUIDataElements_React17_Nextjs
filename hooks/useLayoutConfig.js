@@ -16,6 +16,7 @@ function useLayoutConfig() {
   };
 
   return {
+    dateFormat,
     chooseDateFormat
   };
 }

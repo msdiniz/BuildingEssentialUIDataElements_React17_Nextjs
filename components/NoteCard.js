@@ -10,9 +10,11 @@ function NoteCard({ note }) {
     tagsData,
     noteOnTagsData,
     updateNote,
-    deleteNote,
-    dateFormat
+    deleteNote
   } = useContext(NotesContext);
+  const { 
+    dateFormat 
+  } = useContext(LayoutConfigContext);
   const {
     setModalNoteId,
     setModalShow,

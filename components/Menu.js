@@ -3,8 +3,12 @@ import { useContext } from "react";
 import * as React from 'react';
 
 function Menu({ currentTab, setCurrentTab }) {
-  const { dateFormat, chooseDateFormat } = useContext(LayoutConfigContext);
-  //const isEnglish = dateFormat === "en";
+  const { 
+    dateFormat, 
+    chooseDateFormat 
+  } = useContext(LayoutConfigContext);
+
+    //const isEnglish = dateFormat === "en";
   const [checked, setChecked] = React.useState(dateFormat === "en");
 
   const {
