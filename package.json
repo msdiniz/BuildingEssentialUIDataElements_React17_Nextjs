@@ -1,5 +1,7 @@
 {
   "name": "building-essential-ui-data-elements-pluralsight-course",
+  "author": "Peter Kellner at https://app.pluralsight.com/course-player?clipId=039c63dd-03f6-4a9f-bf22-841653e749b2",
+  "description": "For learning React and NextJS",
   "version": "0.1.0",
   "private": true,
   "scripts": {

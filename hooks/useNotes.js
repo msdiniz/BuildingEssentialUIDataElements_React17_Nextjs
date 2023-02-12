@@ -88,7 +88,7 @@ function useNotes() {
     notesDataError,
     noteAttributesData,
     noteAttributesDataError,
-    dateFormat,
+    // dateFormat,
     // chooseDateFormat,
     noteChangeLogsData,
     noteChangeLogsDataError,
