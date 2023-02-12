@@ -1,4 +1,4 @@
-import { NotesContext, NotesModalContext } from "./App";
+import { NotesContext, NotesModalContext, LayoutConfigContext } from "./App";
 import { useContext } from "react";
 
 //function NoteCard({ note, updateNote, deleteNote }) {
